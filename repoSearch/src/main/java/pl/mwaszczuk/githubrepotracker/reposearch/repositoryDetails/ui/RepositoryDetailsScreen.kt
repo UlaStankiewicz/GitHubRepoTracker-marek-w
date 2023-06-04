@@ -5,17 +5,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -34,6 +38,7 @@ import pl.mwaszczuk.githubrepotracker.design.theme.SizeS
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeXS
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeXXXS
 import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.CloseSelectModeUseCase
+import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.GetCommitsUseCase
 import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.SelectCommitUseCase
 import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.ShareCommitsUseCase
 import pl.mwaszczuk.githubrepotracker.reposearch.R
@@ -58,6 +63,7 @@ fun RepositoryDetailsScreen(
         RepositoryDetailsScreenLayout(
             commits = state.commits,
             isSelectModeOn = state.isSelectModeOn,
+            errorMessage = state.commitsFetchError,
             repoOwner = state.repoOwner,
             repoName = state.repoName,
             onItemSelected = {
@@ -68,6 +74,11 @@ fun RepositoryDetailsScreen(
             },
             onCloseSelectMode = {
                 viewModel.publish(CloseSelectModeUseCase.CloseSelectModeAction)
+            },
+            onRetry = {
+                viewModel.publish(GetCommitsUseCase.GetCommitsAction(
+                    state.repoOwner, state.repoName, state.repoId
+                ))
             }
         )
         AnimatedVisibility(
@@ -89,11 +100,13 @@ fun RepositoryDetailsScreen(
 fun RepositoryDetailsScreenLayout(
     commits: List<Commit>,
     isSelectModeOn: Boolean,
+    errorMessage: String?,
     repoName: String,
     repoOwner: String,
     onItemSelected: (Commit) -> Unit,
     onShareClicked: () -> Unit,
-    onCloseSelectMode: () -> Unit
+    onCloseSelectMode: () -> Unit,
+    onRetry: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -112,20 +125,42 @@ fun RepositoryDetailsScreenLayout(
             )
         }
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(it)
-                .padding(top = SizeS),
-            contentPadding = PaddingValues(bottom = SizeS, start = SizeS, end = SizeS),
-            verticalArrangement = Arrangement.spacedBy(SizeS)
-        ) {
-            items(commits) { item ->
-                CommitListItem(
-                    item = item,
-                    isSelectModeOn = isSelectModeOn,
-                    onSelected = onItemSelected
-                )
+        Column {
+            AnimatedVisibility(visible = errorMessage != null) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colors.error)
+                        .padding(horizontal = SizeS),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        modifier = Modifier.weight(1f),
+                        text = errorMessage ?: "",
+                        style = MaterialTheme.typography.h4.copy(color = MaterialTheme.colors.onBackground)
+                    )
+                    Button(
+                        onClick = onRetry
+                    ) {
+                        Text(text = "retry")
+                    }
+                }
+            }
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(it)
+                    .padding(top = SizeS),
+                contentPadding = PaddingValues(bottom = SizeS, start = SizeS, end = SizeS),
+                verticalArrangement = Arrangement.spacedBy(SizeS)
+            ) {
+                items(commits) { item ->
+                    CommitListItem(
+                        item = item,
+                        isSelectModeOn = isSelectModeOn,
+                        onSelected = onItemSelected
+                    )
+                }
             }
         }
     }
@@ -172,10 +207,12 @@ fun RepositoryScreenLayoutPreview() {
             Commit("sha", "message", "authorName")
         ),
         isSelectModeOn = false,
+        errorMessage = null,
         repoName = "repo",
         repoOwner = "owner",
         onItemSelected = { },
         onShareClicked = { },
-        onCloseSelectMode = { }
+        onCloseSelectMode = { },
+        onRetry = { }
     )
 }

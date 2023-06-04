@@ -16,6 +16,9 @@ class ResponseMapper {
             response.code() in (500..599) -> {
                 throw ApiException.ServiceUnavailableException()
             }
+            response.code() == 404 -> {
+                throw ApiException.NotFound()
+            }
             else -> {
                 throw ApiException.UnexpectedException()
             }

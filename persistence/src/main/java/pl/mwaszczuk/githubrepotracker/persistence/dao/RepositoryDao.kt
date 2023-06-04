@@ -23,5 +23,5 @@ interface RepositoryDao {
     fun getRepositoryWithCommits(repoId: Int): Flow<RepositoryWithCommits>
 
     @Query("SELECT * FROM repository")
-    suspend fun getSearchHistory(): List<RepositoryEntity>
+    fun getSearchHistory(): Flow<List<RepositoryEntity>>
 }

@@ -6,12 +6,13 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 private val LightColorPalette = lightColors(
-    primary = Green,
-    primaryVariant = LightGreen,
-    secondary = Green,
+    primary = LightBlue,
+    primaryVariant = LightBlue,
+    secondary = LightBlue,
     background = Gray249,
     surface = White,
-    onBackground = Gray197,
+    onBackground = Black,
+    error = LightRed,
 )
 
 @Composable

@@ -8,7 +8,7 @@ import pl.mwaszczuk.githubrepotracker.domain.base.BaseRepository as BaseReposito
 
 abstract class RepositoriesRepository : BaseRepository() {
 
-    abstract suspend fun getSearchHistory(): DomainState<List<RepositorySearchItemResource>>
+    abstract suspend fun getSearchHistory(): Flow<DomainState<List<RepositorySearchItemResource>>>
     abstract suspend fun getRepository(owner: String, name: String): DomainState<RepositorySearchItemResource>
     abstract suspend fun getCommits(
         repoOwner: String,

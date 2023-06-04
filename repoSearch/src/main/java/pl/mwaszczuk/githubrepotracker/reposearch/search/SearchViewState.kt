@@ -7,8 +7,7 @@ import pl.mwaszczuk.githubrepotracker.reposearch.search.model.RepoSearchHistoryI
 @Immutable
 data class SearchViewState(
     val isLoading: Boolean = true,
-    val isNetworkError: Boolean = false,
-    val errorMessage: String = "",
+    val showErrorMessage: SideEffect<String>? = null,
     val repoOwnerInput: String = "",
     val repoNameInput: String = "",
     val searchHistory: List<RepoSearchHistoryItem> = emptyList(),

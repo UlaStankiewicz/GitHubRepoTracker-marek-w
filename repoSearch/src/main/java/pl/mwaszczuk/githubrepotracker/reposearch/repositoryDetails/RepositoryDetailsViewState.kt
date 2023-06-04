@@ -9,7 +9,9 @@ data class RepositoryDetailsViewState(
     val isLoading: Boolean = true,
     val isSelectModeOn: Boolean = false,
     val shareCommits: SideEffect<List<Commit>>? = null,
+    val commitsFetchError: String? = null,
     val commits: List<Commit> = emptyList(),
     val repoOwner: String = "",
-    val repoName: String = ""
+    val repoName: String = "",
+    val repoId: Int = -1
 )

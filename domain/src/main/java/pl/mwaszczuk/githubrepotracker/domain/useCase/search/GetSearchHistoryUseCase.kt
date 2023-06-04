@@ -1,6 +1,8 @@
 package pl.mwaszczuk.githubrepotracker.domain.useCase.search
 
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.map
 import pl.mwaszczuk.githubrepotracker.domain.base.Action
 import pl.mwaszczuk.githubrepotracker.domain.base.DomainState
 import pl.mwaszczuk.githubrepotracker.domain.base.UseCase
@@ -24,10 +26,12 @@ class GetSearchHistoryUseCase @Inject constructor(
 
     override suspend fun FlowCollector<Any>.interact(action: GetSearchHistoryAction) {
         emit(Effect.Loading)
-        emit(
-            when (val result = repositoriesRepository.getSearchHistory()) {
-                is DomainState.Success -> Effect.Success(result.data)
-                is DomainState.Error -> Effect.Error(result.errorMessage)
+        emitAll(
+            repositoriesRepository.getSearchHistory().map {
+                when (it) {
+                    is DomainState.Success -> Effect.Success(it.data)
+                    is DomainState.Error -> Effect.Error(it.errorMessage)
+                }
             }
         )
     }

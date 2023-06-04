@@ -1,5 +1,6 @@
 package pl.mwaszczuk.githubrepotracker.reposearch.search.ui
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import pl.mwaszczuk.githubrepotracker.design.interact.HandleSideEffect
@@ -31,11 +33,16 @@ const val SEARCH_SCREEN_ROUTE = "search"
 fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val navController = LocalNavController.current
     val state by viewModel.state.collectAsState()
 
     HandleSideEffect(sideEffect = state.openRepositoryDetails) {
         navController?.navigate(REPOSITORY_DETAILS_ROUTE + "/${it.owner}/${it.name}/${it.id}")
+    }
+
+    HandleSideEffect(sideEffect = state.showErrorMessage) {
+        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -99,6 +106,9 @@ fun SearchScreenLayout(
             )
         }
     ) {
+        if (history.isEmpty()) {
+            SearchEmptyState()
+        }
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()

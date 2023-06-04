@@ -18,14 +18,3 @@ fun <T> HandleSideEffect(
         }
     }
 }
-
-@Composable
-fun <T> HandleToast(
-    sideEffect: SideEffect<T>?,
-    message: String = "",
-) {
-    val context = LocalContext.current
-    HandleSideEffect(sideEffect = sideEffect) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    }
-}

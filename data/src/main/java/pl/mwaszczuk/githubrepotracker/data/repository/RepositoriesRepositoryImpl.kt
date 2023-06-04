@@ -16,9 +16,9 @@ class RepositoriesRepositoryImpl(
     private val responseMapper: ResponseMapper
 ) : RepositoriesRepository() {
 
-    override suspend fun getSearchHistory() = domainStateOf {
-        repositoryDao.getSearchHistory().map { it.toDomain() }
-    }
+    override suspend fun getSearchHistory() =
+        repositoryDao.getSearchHistory()
+            .map { list -> domainStateOf { list.map { it.toDomain() } } }
 
     override suspend fun getRepository(owner: String, name: String) = domainStateOf {
         repositoryDao.getRepository(owner, name)?.toDomain() ?: responseMapper

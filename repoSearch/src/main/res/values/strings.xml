@@ -1,3 +1,5 @@
 <resources>
+    <string name="search_empty_state">Search for a Github Repository by writing down its owner and name!</string>
+
     <string name="repository_details_repo_name">%1$s/%2$s</string>
 </resources>

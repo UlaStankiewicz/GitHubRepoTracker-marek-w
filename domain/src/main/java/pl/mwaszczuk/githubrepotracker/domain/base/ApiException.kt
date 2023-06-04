@@ -10,4 +10,8 @@ sealed class ApiException : Throwable() {
     class UnexpectedException : ApiException() {
         override val message: String = "Oops, something went wrong. Please try again later."
     }
+
+    class NotFound : ApiException() {
+        override val message: String = "Oops, looks like this item was not found."
+    }
 }

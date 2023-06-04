@@ -1,0 +1,83 @@
+[versions]
+kotlin = "1.7.10"
+kotlinx-coroutines = "1.6.2"
+androidx-compose = "1.3.1"
+androidx-compose-compiler = "1.3.1"
+composeKotlinCompilerVersion = "1.3.1"
+accompanist = "0.28.0"
+android-gradle = "7.3.1"
+detekt = "1.20.0"
+dagger-hilt = "2.45"
+androidx-lifecycle = "2.4.0"
+coil = "1.4.0"
+retrofit = "2.9.0"
+okhttp3 = "4.9.2"
+gms-google-services = "4.3.10"
+gms-google-maps = "18.0.2"
+compose-google-maps = "2.11.1"
+mockk = "1.12.4"
+robolectric = "4.9.2"
+room = "2.5.1"
+javax-inject = "1"
+
+[libraries]
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javax-inject"}
+android-tools-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
+kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+test-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric"}
+
+androidx-activity-compose = "androidx.activity:activity-compose:1.4.0"
+androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
+androidx-compose-uiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose" }
+androidx-compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose" }
+androidx-compose-uiUtil = { module = "androidx.compose.ui:ui-util", version.ref = "androidx-compose" }
+androidx-compose-test-junit = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "androidx-compose"}
+androidx-compose-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "androidx-compose"}
+androidx-navigation-navigationCompose = "androidx.navigation:navigation-compose:2.4.0-beta02"
+androidx-hilt-hiltNavigation-compose = "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+google-accompanist-placeholder-material = { module = "com.google.accompanist:accompanist-placeholder-material", version.ref = "accompanist" }
+google-accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist" }
+google-accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+google-accompanist-navigation-material = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
+google-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanist" }
+google-accompanist-pagerIndicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "accompanist" }
+google-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist" }
+
+google-dagger-hiltAndroid-gradle = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "dagger-hilt" }
+google-dagger-hiltAndroid-library = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
+google-dagger-hiltAndroid-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "dagger-hilt" }
+
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+detekt-api = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
+
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-playServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+
+squareup-okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp3" }
+squareup-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+squareup-retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit"}
+
+google-gmsGoogleServices = { module = "com.google.gms:google-services", version.ref = "gms-google-services" }
+google-gms-playServices-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "gms-google-maps" }
+google-maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "compose-google-maps" }
+
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+
+timber = "com.jakewharton.timber:timber:5.0.1"
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+
+[bundles]
+
+[plugins]
+detektPlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

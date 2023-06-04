@@ -1,0 +1,8 @@
+rootProject.name = "GitHubRepoTracker"
+include ':app'
+include ':design'
+include ':data'
+include ':domain'
+include ':network'
+include ':core'
+include ':core:test'

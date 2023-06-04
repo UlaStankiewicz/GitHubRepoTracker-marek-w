@@ -4,12 +4,14 @@ import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import pl.mwaszczuk.githubrepotracker.design.anims.*
-import pl.mwaszczuk.githubrepotracker.design.components.topBar.TopBar
+import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.ui.REPOSITORY_DETAILS_ROUTE
+import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.ui.RepositoryDetailsScreen
 import pl.mwaszczuk.githubrepotracker.reposearch.search.ui.SEARCH_SCREEN_ROUTE
 import pl.mwaszczuk.githubrepotracker.reposearch.search.ui.SearchScreen
 
@@ -32,14 +34,25 @@ fun MainActivityNavigation() {
             SearchScreen(navController = navController)
         }
 
-//        composable(
-//            route = SHIFT_DETAILS_SCREEN_ROUTE,
-//            enterTransition = slideIntoContainerAnimLeft(),
-//            popEnterTransition = slideIntoContainerAnimLeft(),
-//            exitTransition = slideOutOfContainerAnimRight(),
-//            popExitTransition = slideOutOfContainerAnimRight()
-//        ) {
-//            ShiftDetailsScreen()
-//        }
+        composable(
+            route = REPOSITORY_DETAILS_ROUTE + "/{repoOwner}/{repoName}/{repoId}",
+            enterTransition = slideIntoContainerAnimLeft(),
+            popEnterTransition = slideIntoContainerAnimLeft(),
+            exitTransition = slideOutOfContainerAnimRight(),
+            popExitTransition = slideOutOfContainerAnimRight(),
+            arguments = listOf(
+                navArgument("repoOwner") {
+                    type = NavType.StringType
+                },
+                navArgument("repoName") {
+                    type = NavType.StringType
+                },
+                navArgument("repoId") {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            RepositoryDetailsScreen()
+        }
     }
 }

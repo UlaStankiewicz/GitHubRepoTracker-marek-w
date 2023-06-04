@@ -6,8 +6,7 @@ import kotlinx.coroutines.flow.map
 import pl.mwaszczuk.githubrepotracker.domain.base.Action
 import pl.mwaszczuk.githubrepotracker.domain.base.DomainState
 import pl.mwaszczuk.githubrepotracker.domain.base.UseCase
-import pl.mwaszczuk.githubrepotracker.domain.model.Repository
-import pl.mwaszczuk.githubrepotracker.domain.model.RepositorySearchItem
+import pl.mwaszczuk.githubrepotracker.domain.model.RepositoryResource
 import pl.mwaszczuk.githubrepotracker.domain.repository.RepositoriesRepository
 import javax.inject.Inject
 
@@ -18,7 +17,7 @@ class GetCommitsUseCase @Inject constructor(
     sealed interface Effect {
         object Loading : Effect
         data class Success(
-            val repository: Repository
+            val repository: RepositoryResource
         ) : Effect
 
         data class Error(
@@ -29,8 +28,9 @@ class GetCommitsUseCase @Inject constructor(
     override suspend fun FlowCollector<Any>.interact(action: GetCommitsAction) {
         emit(Effect.Loading)
         emitAll(
-            repositoriesRepository.getCommits(action.repo)
-                .map {
+            repositoriesRepository.getCommits(
+                action.repoOwner, action.repoName, action.repoId
+            ).map {
                     when (it) {
                         is DomainState.Success -> Effect.Success(it.data)
                         is DomainState.Error -> Effect.Error(it.errorMessage)
@@ -39,5 +39,9 @@ class GetCommitsUseCase @Inject constructor(
         )
     }
 
-    data class GetCommitsAction(val repo: Repository) : Action
+    data class GetCommitsAction(
+        val repoOwner: String,
+        val repoName: String,
+        val repoId: Int
+    ) : Action
 }

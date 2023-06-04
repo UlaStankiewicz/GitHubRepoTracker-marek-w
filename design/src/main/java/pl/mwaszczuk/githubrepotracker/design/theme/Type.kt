@@ -26,22 +26,22 @@ val GithubRepoTrackerTypography = Typography(
     h3 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.SemiBold,
-        fontSize = TextSizeS
+        fontSize = TextSizeXS
     ),
     h4 = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = TextSizeXS
+        fontWeight = FontWeight.Normal,
+        fontSize = TextSizeXXS
     ),
     h5 = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.SemiBold,
-        fontSize = TextSizeXXS
+        fontWeight = FontWeight.Normal,
+        fontSize = TextSizeXXXS
     ),
     h6 = TextStyle(
         fontFamily = Poppins,
-        fontWeight = FontWeight.Bold,
-        fontSize = TextSizeXXS
+        fontWeight = FontWeight.Normal,
+        fontSize = TextSizeXXXXS
     ),
     body1 = TextStyle(
         fontFamily = Poppins,
@@ -66,7 +66,7 @@ val GithubRepoTrackerTypography = Typography(
     caption = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
-        fontSize = TextSizeXXXXS,
+        fontSize = TextSizeXXXS,
         color = Gray152
     )
 )

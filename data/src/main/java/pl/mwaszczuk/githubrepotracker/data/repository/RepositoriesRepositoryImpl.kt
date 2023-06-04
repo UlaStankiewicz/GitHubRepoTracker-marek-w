@@ -3,7 +3,6 @@ package pl.mwaszczuk.githubrepotracker.network.pl.mwaszczuk.githubrepotracker.da
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import pl.mwaszczuk.githubrepotracker.domain.base.DomainState
-import pl.mwaszczuk.githubrepotracker.domain.model.Repository
 import pl.mwaszczuk.githubrepotracker.domain.repository.RepositoriesRepository
 import pl.mwaszczuk.githubrepotracker.network.ResponseMapper
 import pl.mwaszczuk.githubrepotracker.network.api.RepositoriesApi
@@ -35,11 +34,15 @@ class RepositoriesRepositoryImpl(
         repositoryDao.insertCommits(response.map { it.toEntity(repoId) })
     }
 
-    override suspend fun getCommits(repo: Repository) = repositoryDao.getRepositoryWithCommits(repo.id)
+    override suspend fun getCommits(
+        repoOwner: String,
+        repoName: String,
+        repoId: Int
+    ) = repositoryDao.getRepositoryWithCommits(repoId)
             .map { domainStateOf { it.toDomain() } }
             .onStart {
                 val networkUpdateState =
-                    domainStateOf { updateCommits(repo.owner, repo.name, repo.id) }
+                    domainStateOf { updateCommits(repoOwner, repoName, repoId) }
                 if (networkUpdateState is DomainState.Error) emit(networkUpdateState)
             }
 }

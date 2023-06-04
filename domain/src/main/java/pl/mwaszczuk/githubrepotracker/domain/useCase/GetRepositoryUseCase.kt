@@ -4,8 +4,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import pl.mwaszczuk.githubrepotracker.domain.base.Action
 import pl.mwaszczuk.githubrepotracker.domain.base.DomainState
 import pl.mwaszczuk.githubrepotracker.domain.base.UseCase
-import pl.mwaszczuk.githubrepotracker.domain.model.Repository
-import pl.mwaszczuk.githubrepotracker.domain.model.RepositorySearchItem
+import pl.mwaszczuk.githubrepotracker.domain.model.RepositorySearchItemResource
 import pl.mwaszczuk.githubrepotracker.domain.repository.RepositoriesRepository
 import javax.inject.Inject
 
@@ -16,7 +15,7 @@ class GetRepositoryUseCase @Inject constructor(
     sealed interface Effect {
         object Loading : Effect
         data class Success(
-            val repository: RepositorySearchItem
+            val repository: RepositorySearchItemResource
         ) : Effect
 
         data class Error(

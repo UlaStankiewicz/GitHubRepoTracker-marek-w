@@ -15,8 +15,8 @@ val SizeXXXXS = 2.dp
 
 val TextSizeL = 28.sp
 val TextSizeM = 24.sp
-val TextSizeS = 20.sp
-val TextSizeXS = 18.sp
-val TextSizeXXS = 16.sp
-val TextSizeXXXS = 14.sp
-val TextSizeXXXXS = 12.sp
+val TextSizeS = 16.sp
+val TextSizeXS = 14.sp
+val TextSizeXXS = 12.sp
+val TextSizeXXXS = 10.sp
+val TextSizeXXXXS = 8.sp

@@ -32,9 +32,9 @@ class RepositoryDetailsViewModel @Inject constructor(
 ) {
 
     init {
-        val owner = savedStateHandle.get<String>("ownerKey")!!
-        val name = savedStateHandle.get<String>("nameKey")!!
-        val id = savedStateHandle.get<Int>("idKey")!!
+        val owner = checkNotNull(savedStateHandle.get<String>("repoOwner"))
+        val name = checkNotNull(savedStateHandle.get<String>("repoName"))
+        val id = checkNotNull(savedStateHandle.get<Int>("repoId"))
         publish(GetCommitsUseCase.GetCommitsAction(owner, name, id))
     }
 }

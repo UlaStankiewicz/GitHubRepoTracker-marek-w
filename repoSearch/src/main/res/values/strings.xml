@@ -1,0 +1,4 @@
+<resources>
+    <string name="repository_details_repo_name">%1$s/%2$s</string>
+    <string name="repository_details_commits">Commits</string>
+</resources>

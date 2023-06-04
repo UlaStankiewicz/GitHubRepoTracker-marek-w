@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import pl.mwaszczuk.githubrepotracker.design.interact.HandleSideEffect
+import pl.mwaszczuk.githubrepotracker.design.localComposition.LocalNavController
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeS
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeXXXS
 import pl.mwaszczuk.githubrepotracker.domain.useCase.ChangeRepoSearchInputUseCase
@@ -24,20 +24,18 @@ import pl.mwaszczuk.githubrepotracker.domain.useCase.GetRepositoryUseCase
 import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.ui.REPOSITORY_DETAILS_ROUTE
 import pl.mwaszczuk.githubrepotracker.reposearch.search.SearchViewModel
 import pl.mwaszczuk.githubrepotracker.reposearch.search.model.RepoSearchHistoryItem
-import timber.log.Timber
 
 const val SEARCH_SCREEN_ROUTE = "search"
 
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel = hiltViewModel(),
-    navController: NavHostController
+    viewModel: SearchViewModel = hiltViewModel()
 ) {
-
+    val navController = LocalNavController.current
     val state by viewModel.state.collectAsState()
 
     HandleSideEffect(sideEffect = state.openRepositoryDetails) {
-        navController.navigate(REPOSITORY_DETAILS_ROUTE + "/${it.owner}/${it.name}/${it.id}")
+        navController?.navigate(REPOSITORY_DETAILS_ROUTE + "/${it.owner}/${it.name}/${it.id}")
     }
 
     Box(modifier = Modifier.fillMaxSize()) {

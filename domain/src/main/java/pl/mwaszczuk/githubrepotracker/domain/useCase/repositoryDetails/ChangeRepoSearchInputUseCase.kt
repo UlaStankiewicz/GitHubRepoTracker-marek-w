@@ -1,4 +1,4 @@
-package pl.mwaszczuk.githubrepotracker.domain.useCase
+package pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails
 
 import kotlinx.coroutines.flow.FlowCollector
 import pl.mwaszczuk.githubrepotracker.domain.base.Action

@@ -22,7 +22,8 @@ val AppBarHeight = 64.dp
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
-    title: String
+    title: String,
+    contentRight: @Composable () -> Unit = {}
 ) {
     val navController = LocalNavController.current
     TopAppBar(
@@ -41,11 +42,14 @@ fun TopBar(
             painter = painterResource(
                 id = DesignDrawables.ic_arrow_back
             ),
-            contentDescription = ""
+            contentDescription = "back_arrow"
         )
         Text(
+            modifier = Modifier.weight(1f),
             text = title,
             style = MaterialTheme.typography.h3
         )
+
+        contentRight()
     }
 }

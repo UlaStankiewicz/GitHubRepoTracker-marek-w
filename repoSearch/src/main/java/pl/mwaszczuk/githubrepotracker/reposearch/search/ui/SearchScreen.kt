@@ -19,8 +19,8 @@ import pl.mwaszczuk.githubrepotracker.design.interact.HandleSideEffect
 import pl.mwaszczuk.githubrepotracker.design.localComposition.LocalNavController
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeS
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeXXXS
-import pl.mwaszczuk.githubrepotracker.domain.useCase.ChangeRepoSearchInputUseCase
-import pl.mwaszczuk.githubrepotracker.domain.useCase.GetRepositoryUseCase
+import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.ChangeRepoSearchInputUseCase
+import pl.mwaszczuk.githubrepotracker.domain.useCase.search.GetRepositoryUseCase
 import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.ui.REPOSITORY_DETAILS_ROUTE
 import pl.mwaszczuk.githubrepotracker.reposearch.search.SearchViewModel
 import pl.mwaszczuk.githubrepotracker.reposearch.search.model.RepoSearchHistoryItem

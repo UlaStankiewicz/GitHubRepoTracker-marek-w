@@ -1,8 +1,11 @@
 package pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.ui
 
-import androidx.compose.foundation.clickable
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.Checkbox
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -14,48 +17,88 @@ import androidx.compose.ui.tooling.preview.Preview
 import pl.mwaszczuk.githubrepotracker.design.DesignDrawables
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeL
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeS
-import pl.mwaszczuk.githubrepotracker.design.theme.SizeXS
+import pl.mwaszczuk.githubrepotracker.design.theme.SizeXXS
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeXXXS
 import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.model.Commit
-import pl.mwaszczuk.githubrepotracker.reposearch.search.model.RepoSearchHistoryItem
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CommitListItem(
     item: Commit,
-    onClick: (Commit) -> Unit
+    isSelectModeOn: Boolean,
+    onSelected: (Commit) -> Unit
 ) {
     Card(elevation = SizeXXXS) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { onClick(item) }
+                .combinedClickable(
+                    onClick = {
+                        if (isSelectModeOn) {
+                            onSelected(item.copy(isSelected = !item.isSelected))
+                        }
+                    },
+                    onLongClick = {
+                        onSelected(item.copy(isSelected = true))
+                    }
+                )
                 .padding(SizeS),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                modifier = Modifier.size(SizeL),
-                painter = painterResource(DesignDrawables.ic_commit),
-                contentDescription = "commit"
-            )
+            AnimatedVisibility(visible = isSelectModeOn) {
+                Checkbox(
+                    modifier = Modifier
+                        .size(SizeL),
+                    checked = item.isSelected,
+                    onCheckedChange = { onSelected(item.copy(isSelected = it)) }
+                )
+            }
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .padding(start = SizeXS)
+                    .fillMaxSize()
+                    .padding(SizeXXS)
             ) {
-                Text(
-                    text = item.authorName,
-                    style = MaterialTheme.typography.body1
-                )
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Icon(
+                        modifier = Modifier
+                            .size(SizeS)
+                            .padding(end = SizeXXXS),
+                        painter = painterResource(DesignDrawables.ic_person),
+                        contentDescription = "author"
+                    )
+                    Text(
+                        text = item.authorName,
+                        style = MaterialTheme.typography.body1
+                    )
+                }
 
-                Text(
-                    text = item.sha,
-                    style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground)
-                )
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Icon(
+                        modifier = Modifier
+                            .size(SizeS)
+                            .padding(end = SizeXXXS),
+                        painter = painterResource(DesignDrawables.ic_commit),
+                        contentDescription = "commit"
+                    )
+                    Text(
+                        text = item.sha,
+                        style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground)
+                    )
+                }
 
-                Text(
-                    text = item.message,
-                    style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground)
-                )
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    Icon(
+                        modifier = Modifier
+                            .size(SizeS)
+                            .padding(end = SizeXXXS),
+                        painter = painterResource(DesignDrawables.ic_comment),
+                        contentDescription = "comment"
+                    )
+                    Text(
+                        text = item.message,
+                        style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground)
+                    )
+                }
             }
         }
     }
@@ -70,6 +113,7 @@ fun ShiftItemPreview() {
             message = "message",
             authorName = "author"
         ),
-        onClick = {}
+        isSelectModeOn = false,
+        onSelected = {}
     )
 }

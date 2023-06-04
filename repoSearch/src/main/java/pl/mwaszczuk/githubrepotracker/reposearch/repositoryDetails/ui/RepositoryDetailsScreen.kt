@@ -2,15 +2,18 @@ package pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -19,13 +22,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import pl.mwaszczuk.githubrepotracker.design.DesignDrawables
 import pl.mwaszczuk.githubrepotracker.design.components.TopBar
+import pl.mwaszczuk.githubrepotracker.design.interact.HandleSideEffect
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeS
+import pl.mwaszczuk.githubrepotracker.design.theme.SizeXS
 import pl.mwaszczuk.githubrepotracker.design.theme.SizeXXXS
+import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.CloseSelectModeUseCase
+import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.SelectCommitUseCase
+import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.ShareCommitsUseCase
 import pl.mwaszczuk.githubrepotracker.reposearch.R
+import pl.mwaszczuk.githubrepotracker.reposearch.extensions.shareCommits
 import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.RepositoryDetailsViewModel
 import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.model.Commit
 
@@ -35,15 +47,27 @@ const val REPOSITORY_DETAILS_ROUTE = "repository_details"
 fun RepositoryDetailsScreen(
     viewModel: RepositoryDetailsViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val state by viewModel.state.collectAsState()
+
+    HandleSideEffect(sideEffect = state.shareCommits) {
+        context.shareCommits(it, state.repoName, state.repoOwner)
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         RepositoryDetailsScreenLayout(
             commits = state.commits,
+            isSelectModeOn = state.isSelectModeOn,
             repoOwner = state.repoOwner,
             repoName = state.repoName,
-            onItemClicked = {
-
+            onItemSelected = {
+                viewModel.publish(SelectCommitUseCase.SelectCommitAction(it.sha, it.isSelected))
+            },
+            onShareClicked = {
+                viewModel.publish(ShareCommitsUseCase.ShareCommitsAction)
+            },
+            onCloseSelectMode = {
+                viewModel.publish(CloseSelectModeUseCase.CloseSelectModeAction)
             }
         )
         AnimatedVisibility(
@@ -64,15 +88,27 @@ fun RepositoryDetailsScreen(
 @Composable
 fun RepositoryDetailsScreenLayout(
     commits: List<Commit>,
+    isSelectModeOn: Boolean,
     repoName: String,
     repoOwner: String,
-    onItemClicked: (Commit) -> Unit,
+    onItemSelected: (Commit) -> Unit,
+    onShareClicked: () -> Unit,
+    onCloseSelectMode: () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopBar(
                 title = stringResource(
-                    R.string.repository_details_repo_name, repoOwner, repoName)
+                    R.string.repository_details_repo_name, repoOwner, repoName
+                ),
+                contentRight = {
+                    if (isSelectModeOn) {
+                        TopBarSelectModeIcons(
+                            onShareClicked = onShareClicked,
+                            onCloseClicked = onCloseSelectMode
+                        )
+                    }
+                }
             )
         }
     ) {
@@ -85,9 +121,46 @@ fun RepositoryDetailsScreenLayout(
             verticalArrangement = Arrangement.spacedBy(SizeS)
         ) {
             items(commits) { item ->
-                CommitListItem(item, onItemClicked)
+                CommitListItem(
+                    item = item,
+                    isSelectModeOn = isSelectModeOn,
+                    onSelected = onItemSelected
+                )
             }
         }
+    }
+}
+
+@Composable
+fun TopBarSelectModeIcons(
+    onShareClicked: () -> Unit,
+    onCloseClicked: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+    ) {
+        Icon(
+            modifier = Modifier
+                .padding(end = SizeXS)
+                .clickable {
+                    onShareClicked()
+                },
+            painter = painterResource(
+                id = DesignDrawables.ic_share
+            ),
+            contentDescription = "share"
+        )
+
+        Icon(
+            modifier = Modifier
+                .clickable {
+                    onCloseClicked()
+                },
+            painter = painterResource(
+                id = DesignDrawables.ic_close
+            ),
+            contentDescription = "close"
+        )
     }
 }
 
@@ -98,8 +171,11 @@ fun RepositoryScreenLayoutPreview() {
         commits = listOf(
             Commit("sha", "message", "authorName")
         ),
+        isSelectModeOn = false,
         repoName = "repo",
         repoOwner = "owner",
-        onItemClicked = { }
+        onItemSelected = { },
+        onShareClicked = { },
+        onCloseSelectMode = { }
     )
 }

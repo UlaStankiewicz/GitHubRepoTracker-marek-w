@@ -4,9 +4,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import pl.mwaszczuk.githubrepotracker.core.base.BaseViewModel
 import pl.mwaszczuk.githubrepotracker.core.interact.SideEffect
 import pl.mwaszczuk.githubrepotracker.core.interact.reducer
-import pl.mwaszczuk.githubrepotracker.domain.useCase.ChangeRepoSearchInputUseCase
-import pl.mwaszczuk.githubrepotracker.domain.useCase.GetRepositoryUseCase
-import pl.mwaszczuk.githubrepotracker.domain.useCase.GetSearchHistoryUseCase
+import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.ChangeRepoSearchInputUseCase
+import pl.mwaszczuk.githubrepotracker.domain.useCase.search.GetRepositoryUseCase
+import pl.mwaszczuk.githubrepotracker.domain.useCase.search.GetSearchHistoryUseCase
 import pl.mwaszczuk.githubrepotracker.reposearch.search.mapper.toUI
 import pl.mwaszczuk.githubrepotracker.reposearch.search.model.RepoSearchHistoryItem
 import javax.inject.Inject

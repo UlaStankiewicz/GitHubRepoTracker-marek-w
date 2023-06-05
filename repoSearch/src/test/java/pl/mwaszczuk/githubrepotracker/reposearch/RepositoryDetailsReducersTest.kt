@@ -135,8 +135,8 @@ class RepositoryDetailsReducersTest {
         )
         // Then
         assertEquals(
-            listOf(commit.toUi()),
-            targetState.shareCommits?.getSideEffect()?.toList()
+            listOf(commit.toUi().toString()),
+            targetState.shareCommits?.getSideEffect()?.map { it.toString() }
         )
     }
 }

@@ -107,8 +107,9 @@ class RepositoriesRepositoryImplTest {
         result
             .test(this)
             .assertValuesAndFinish(
-                DomainState.Success(repoWithCommitsResource),
-                DomainState.Error.ApiError(ApiException.NotFound().message)
+                DomainState.Error.ApiError(ApiException.NotFound().message),
+                DomainState.Success(repoWithCommitsResource)
+
             )
 
 

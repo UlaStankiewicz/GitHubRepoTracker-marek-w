@@ -12,13 +12,4 @@ data class Commit(
     override fun toString(): String {
         return "Commit $sha\nAuthor $authorName\nMessage $message\n\n\n"
     }
-
-    override fun hashCode(): Int {
-        return sha.hashCode() + message.hashCode() + authorName.hashCode()
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        return hashCode() == other.hashCode()
-    }
 }

@@ -8,6 +8,7 @@ fun Context.shareCommits(commits: List<Commit>, repoName: String, repoOwner: Str
     val shareIntent = Intent(Intent.ACTION_SEND)
     shareIntent.type = "text/plain"
     val commitsString = buildString {
+        append("Commits for $repoName/$repoOwner\n\n")
         commits.forEach {
             append(it.toString())
         }

@@ -2,7 +2,7 @@ package pl.mwaszczuk.githubrepotracker.data.repository
 
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.withContext
 import pl.mwaszczuk.githubrepotracker.domain.base.DispatchersProvider
 import pl.mwaszczuk.githubrepotracker.domain.base.DomainState
@@ -48,7 +48,7 @@ class RepositoriesRepositoryImpl(
         repoId: Int
     ) = repositoryDao.getRepositoryWithCommits(repoId)
         .map { domainStateOf { it.toDomain() } }
-        .onCompletion {
+        .onStart {
             val networkUpdateState =
                 domainStateOf { updateCommits(repoOwner, repoName, repoId) }
             if (networkUpdateState is DomainState.Error) emit(networkUpdateState)

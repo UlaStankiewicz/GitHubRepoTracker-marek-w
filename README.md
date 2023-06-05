@@ -5,6 +5,7 @@ GitHubRepoTracker is an Android app that fetches github repositories by their na
 ## Getting Started
 
 ### Prerequisites
+To be able to successfully build this project, a following setup is needed:
 
 * Gradle version 8.0.2
 

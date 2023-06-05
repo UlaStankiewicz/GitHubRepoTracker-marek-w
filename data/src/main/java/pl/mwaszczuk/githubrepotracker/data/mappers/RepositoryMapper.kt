@@ -1,4 +1,4 @@
-package pl.mwaszczuk.githubrepotracker.network.pl.mwaszczuk.githubrepotracker.data.mappers
+package pl.mwaszczuk.githubrepotracker.data.mappers
 
 import pl.mwaszczuk.githubrepotracker.domain.model.RepositoryResource
 import pl.mwaszczuk.githubrepotracker.domain.model.RepositorySearchItemResource

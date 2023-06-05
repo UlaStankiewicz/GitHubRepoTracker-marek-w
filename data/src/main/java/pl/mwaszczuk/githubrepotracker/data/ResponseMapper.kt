@@ -1,4 +1,4 @@
-package pl.mwaszczuk.githubrepotracker.network
+package pl.mwaszczuk.githubrepotracker.data
 
 import pl.mwaszczuk.githubrepotracker.domain.base.ApiException
 import retrofit2.Response

@@ -1,12 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
-    namespace 'pl.mwaszczuk.githubrepotracker.persistence'
+    namespace 'pl.mwaszczuk.githubrepotracker.core.androidTest'
     compileSdk 33
 
     defaultConfig {
@@ -37,10 +35,6 @@ android {
 }
 
 dependencies {
-    implementation libs.google.dagger.hiltAndroid.library
-    kapt libs.google.dagger.hiltAndroid.compiler
-
-    implementation libs.androidx.room.runtime
-    implementation libs.androidx.room.ktx
-    kapt libs.androidx.room.compiler
+    api libs.androidx.compose.test.junit
+    debugApi libs.androidx.compose.test.manifest
 }

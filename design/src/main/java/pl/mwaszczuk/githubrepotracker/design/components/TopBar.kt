@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import pl.mwaszczuk.githubrepotracker.design.DesignDrawables
@@ -45,7 +46,9 @@ fun TopBar(
             contentDescription = "back_arrow"
         )
         Text(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .testTag("topbar_title"),
             text = title,
             style = MaterialTheme.typography.h3
         )

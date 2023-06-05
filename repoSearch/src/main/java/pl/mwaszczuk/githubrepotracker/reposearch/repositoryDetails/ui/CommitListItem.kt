@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import pl.mwaszczuk.githubrepotracker.design.DesignDrawables
@@ -48,7 +49,8 @@ fun CommitListItem(
             AnimatedVisibility(visible = isSelectModeOn) {
                 Checkbox(
                     modifier = Modifier
-                        .size(SizeL),
+                        .size(SizeL)
+                        .testTag("commit_checkbox"),
                     checked = item.isSelected,
                     onCheckedChange = { onSelected(item.copy(isSelected = it)) }
                 )

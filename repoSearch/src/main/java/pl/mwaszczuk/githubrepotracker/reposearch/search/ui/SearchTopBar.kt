@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,7 +34,8 @@ fun SearchTopBar(
                 .weight(1f)
                 .padding(top = SizeXS)
                 .padding(bottom = SizeXXS)
-                .align(Alignment.CenterVertically),
+                .align(Alignment.CenterVertically)
+                .testTag("input_owner"),
             value = repoOwnerInput,
             onValueChange = { onSearchInputChanged(it, repoNameInput) },
             textStyle = MaterialTheme.typography.h5,
@@ -53,7 +55,8 @@ fun SearchTopBar(
                 .weight(1f)
                 .padding(top = SizeXS)
                 .padding(bottom = SizeXXS)
-                .align(Alignment.CenterVertically),
+                .align(Alignment.CenterVertically)
+                .testTag("input_name"),
             value = repoNameInput,
             onValueChange = { onSearchInputChanged(repoOwnerInput, it) },
             textStyle = MaterialTheme.typography.h5,

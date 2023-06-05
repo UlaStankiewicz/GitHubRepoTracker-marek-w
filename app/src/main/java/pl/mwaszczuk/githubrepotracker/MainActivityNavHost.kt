@@ -12,6 +12,9 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import pl.mwaszczuk.githubrepotracker.design.anims.*
 import pl.mwaszczuk.githubrepotracker.design.localComposition.LocalNavController
+import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.REPOSITORY_DETAILS_SCREEN_ID_ARG
+import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.REPOSITORY_DETAILS_SCREEN_NAME_ARG
+import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.REPOSITORY_DETAILS_SCREEN_OWNER_ARG
 import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.ui.REPOSITORY_DETAILS_ROUTE
 import pl.mwaszczuk.githubrepotracker.reposearch.repositoryDetails.ui.RepositoryDetailsScreen
 import pl.mwaszczuk.githubrepotracker.reposearch.search.ui.SEARCH_SCREEN_ROUTE
@@ -38,19 +41,20 @@ fun MainActivityNavigation() {
             }
 
             composable(
-                route = REPOSITORY_DETAILS_ROUTE + "/{repoOwner}/{repoName}/{repoId}",
+                route = REPOSITORY_DETAILS_ROUTE +
+                        "/{$REPOSITORY_DETAILS_SCREEN_OWNER_ARG}/{$REPOSITORY_DETAILS_SCREEN_NAME_ARG}/{$REPOSITORY_DETAILS_SCREEN_ID_ARG}",
                 enterTransition = slideIntoContainerAnimLeft(),
                 popEnterTransition = slideIntoContainerAnimLeft(),
                 exitTransition = slideOutOfContainerAnimRight(),
                 popExitTransition = slideOutOfContainerAnimRight(),
                 arguments = listOf(
-                    navArgument("repoOwner") {
+                    navArgument(REPOSITORY_DETAILS_SCREEN_OWNER_ARG) {
                         type = NavType.StringType
                     },
-                    navArgument("repoName") {
+                    navArgument(REPOSITORY_DETAILS_SCREEN_NAME_ARG) {
                         type = NavType.StringType
                     },
-                    navArgument("repoId") {
+                    navArgument(REPOSITORY_DETAILS_SCREEN_ID_ARG) {
                         type = NavType.IntType
                     }
                 )

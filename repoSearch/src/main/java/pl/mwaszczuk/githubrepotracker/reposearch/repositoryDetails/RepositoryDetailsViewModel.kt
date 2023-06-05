@@ -9,6 +9,10 @@ import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.SelectCom
 import pl.mwaszczuk.githubrepotracker.domain.useCase.repositoryDetails.ShareCommitsUseCase
 import javax.inject.Inject
 
+const val REPOSITORY_DETAILS_SCREEN_OWNER_ARG = "repoOwner"
+const val REPOSITORY_DETAILS_SCREEN_NAME_ARG = "repoName"
+const val REPOSITORY_DETAILS_SCREEN_ID_ARG = "repoId"
+
 @HiltViewModel
 class RepositoryDetailsViewModel @Inject constructor(
     getCommitsUseCase: GetCommitsUseCase,
@@ -18,9 +22,9 @@ class RepositoryDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel<RepositoryDetailsViewState>(
     initialState = RepositoryDetailsViewState(
-        repoOwner = checkNotNull(savedStateHandle.get<String>("repoOwner")),
-        repoName = checkNotNull(savedStateHandle.get<String>("repoName")),
-        repoId = checkNotNull(savedStateHandle.get<Int>("repoId"))
+        repoOwner = checkNotNull(savedStateHandle.get<String>(REPOSITORY_DETAILS_SCREEN_OWNER_ARG)),
+        repoName = checkNotNull(savedStateHandle.get<String>(REPOSITORY_DETAILS_SCREEN_NAME_ARG)),
+        repoId = checkNotNull(savedStateHandle.get<Int>(REPOSITORY_DETAILS_SCREEN_ID_ARG))
     ),
     useCases = listOf(
         getCommitsUseCase,

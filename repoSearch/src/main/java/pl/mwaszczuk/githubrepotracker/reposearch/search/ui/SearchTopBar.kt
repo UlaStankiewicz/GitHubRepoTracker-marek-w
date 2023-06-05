@@ -7,11 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import pl.mwaszczuk.githubrepotracker.design.DesignDrawables
 import pl.mwaszczuk.githubrepotracker.design.components.AppBarHeight
 import pl.mwaszczuk.githubrepotracker.design.components.CustomOutlinedTextField
 import pl.mwaszczuk.githubrepotracker.design.theme.*
+import pl.mwaszczuk.githubrepotracker.reposearch.R
 
 @Composable
 fun SearchTopBar(
@@ -38,8 +40,9 @@ fun SearchTopBar(
             singleLine = true,
             label = {
                 Text(
-                    text = "owner",
-                    style = MaterialTheme.typography.caption)
+                    text = stringResource(R.string.search_owner_label),
+                    style = MaterialTheme.typography.caption
+                )
             }
         )
 
@@ -55,7 +58,12 @@ fun SearchTopBar(
             onValueChange = { onSearchInputChanged(repoOwnerInput, it) },
             textStyle = MaterialTheme.typography.h5,
             singleLine = true,
-            label = { Text(text = "name", style = MaterialTheme.typography.caption) }
+            label = {
+                Text(
+                    text = stringResource(R.string.search_name_label),
+                    style = MaterialTheme.typography.caption
+                )
+            }
         )
 
         Icon(

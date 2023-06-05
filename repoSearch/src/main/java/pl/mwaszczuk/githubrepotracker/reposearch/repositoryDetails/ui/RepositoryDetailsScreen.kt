@@ -142,7 +142,9 @@ fun RepositoryDetailsScreenLayout(
                     Button(
                         onClick = onRetry
                     ) {
-                        Text(text = "retry")
+                        Text(
+                            text = stringResource(R.string.repository_details_retry)
+                        )
                     }
                 }
             }

@@ -12,7 +12,7 @@ To be able to successfully build this project, a following setup is needed:
 ```
 Project Structure -> Project -> Gradle Version
 ```
-* JDK 17 (required to run AGP 8.0.2)
+* JDK 17 (required to run AGP 8.0.2). JDK 17 is already embedded in Android Studio Flamingo
 
 ```
 Settings -> Build, Execution, Deployment -> Build Tools -> Gradle -> Gradle JDK
